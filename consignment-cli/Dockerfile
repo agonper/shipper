@@ -1,4 +1,4 @@
-# consignment-service/Dockerfile
+# consignment-cli/Dockerfile
 
 # We use the official golang image, which contains all the 
 # correct build tools and libraries. Notice `as builder`,
@@ -6,7 +6,7 @@
 FROM golang:1.9.0 as builder
 
 # Set our workdir to our current service in the gopath
-WORKDIR /go/src/github.com/agonper/shipper/consignment-service
+WORKDIR /go/src/github.com/agonper/shipper/consignment-cli
 
 # Copy the current code into our workdir
 COPY . .
@@ -40,8 +40,10 @@ WORKDIR /app
 # we pull the binary from the container named `builder`, within
 # this build context. This reaches into our previous image, finds
 # the binary we built, and pulls it into this container.
-COPY --from=builder /go/src/github.com/agonper/shipper/consignment-service .
+COPY --from=builder /go/src/github.com/agonper/shipper/consignment.json .
+COPY --from=builder /go/src/github.com/agonper/shipper/consignment-cli .
 
 # Run the binary as per usual. This time with a binary built in a
 # separate container.
-CMD ["./consignment-service"]
+CMD ["./consignment-cli"]
+
