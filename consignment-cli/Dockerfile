@@ -40,8 +40,8 @@ WORKDIR /app
 # we pull the binary from the container named `builder`, within
 # this build context. This reaches into our previous image, finds
 # the binary we built, and pulls it into this container.
-COPY --from=builder /go/src/github.com/agonper/shipper/consignment.json .
-COPY --from=builder /go/src/github.com/agonper/shipper/consignment-cli .
+COPY --from=builder /go/src/github.com/agonper/shipper/consignment-cli/consignment.json .
+COPY --from=builder /go/src/github.com/agonper/shipper/consignment-cli/consignment-cli .
 
 # Run the binary as per usual. This time with a binary built in a
 # separate container.
